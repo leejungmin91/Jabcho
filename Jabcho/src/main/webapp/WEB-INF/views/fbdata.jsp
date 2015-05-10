@@ -36,19 +36,21 @@
 							+ appSecret
 							+ "&redirect_uri=http://localhost:8080/test/fbdata"
 							+ "&code=" + code);
-
 			DefaultHttpClient http = new DefaultHttpClient();
 			result = http.execute(get, new BasicResponseHandler());
-
+			
 			accesstoken = result.substring(result.indexOf("=") + 1);
+			System.out.println(accesstoken);
 			HttpGet get2 = new HttpGet(
 					"https://graph.facebook.com/me?access_token="
 							+ accesstoken);
 			DefaultHttpClient http2 = new DefaultHttpClient();
 			result2 = http2.execute(get2, new BasicResponseHandler());
-
+		    session.setAttribute("fbtoken", accesstoken);
+		    System.out.println(result2);
 		}
 		String jsonData = "";
+		
 		BufferedReader br = null;
 		try {
 			String line;
@@ -88,7 +90,8 @@
 			type="hidden" name="gender" value="<%=gender%>">
 	</form>
 	<script type="text/javascript">
-		document.sendForm.action = "http://localhost:8080/test/insert"; // OrderNum 을 받을 페이지
+	
+		document.sendForm.action = "http://localhost:8080/test/main"; 
 		document.sendForm.submit();
 	</script>
 

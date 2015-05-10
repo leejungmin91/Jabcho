@@ -1,7 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=utf-8"%>
-<%@ page session="false"%>
-<%@ page import="java.util.*,com.mytest.*"%>
+<%@ page session="true"%>
+<%@ page import="java.net.URLEncoder "%>
+
+<%
+	String accessToken = (String) session.getAttribute("fbtoken");
+	String logoutURL = "https://www.facebook.com/logout.php?next="
+			+ URLEncoder.encode("http://localhost:8080/test/home",
+					"UTF-8") + "&access_token=" + accessToken;
+%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -41,14 +48,14 @@
 				</button>
 				<a class="navbar-brand" href="index.html">잡초</a>
 			</div>
+
 			<div
 				style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
-				<c:forEach items="${result}" var="member">
-			
-				${member.name}
-			
-		</c:forEach>
-				&nbsp;님 환영합니다!&nbsp; <a href="#"
+				<c:forEach var="member" items="${result}">
+					<td>${member.get_name()}</td>
+				</c:forEach>
+
+				&nbsp;님 환영합니다!&nbsp; <a href="#" onClick="testlogout()"
 					class="btn btn-danger square-btn-adjust">Logout</a>
 			</div>
 		</nav>
@@ -490,7 +497,14 @@
 	<!-- CUSTOM SCRIPTS -->
 	<script
 		src="http://localhost:8080/test/resources/bootstrap/main/js/custom.js"></script>
+	<script language="javascript"
+		src="http://connect.facebook.net/ko_KR/all.js"></script>
+	<script language="javascript">
 
+		function testlogout() {
+				window.location.href = "<%=logoutURL%>"
+		}
+	</script>
 
 </body>
 </html>
