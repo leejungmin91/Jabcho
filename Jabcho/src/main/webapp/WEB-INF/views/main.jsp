@@ -51,11 +51,12 @@
 
 			<div
 				style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
+
 				<c:forEach var="member" items="${result}">
 					<td>${member.get_name()}</td>
 				</c:forEach>
 
-				&nbsp;님 환영합니다!&nbsp; <a href="#" onClick="testlogout()"
+				&nbsp;님 환영합니다!&nbsp; <a href="<%=logoutURL%>"
 					class="btn btn-danger square-btn-adjust">Logout</a>
 			</div>
 		</nav>
@@ -68,10 +69,10 @@
 						class="user-image img-responsive" /></li>
 
 
-					<li><a class="active-menu" href="index.html"><i
+					<li><a class="active-menu" href="#"><i
 							class="fa fa-dashboard fa-3x"></i> Dashboard</a></li>
-					<li><a href="ui.html"><i class="fa fa-desktop fa-3x"></i>
-							UI Elements</a></li>
+					<li><a href="#"><i class="fa fa-desktop fa-3x"></i> File
+							UPLOAD</a></li>
 
 				</ul>
 
@@ -85,6 +86,13 @@
 					<div class="col-md-12">
 						<h2>Admin Dashboard</h2>
 						<h5>Welcome Jhon Deo , Love to see you back.</h5>
+
+						<form action="fileup" method="post" enctype="multipart/form-data">
+							<input type="file" name="uploadfile" required="required">
+							<input type="submit" value="작성">
+
+						</form>
+
 					</div>
 				</div>
 				<!-- /. ROW  -->
@@ -499,12 +507,7 @@
 		src="http://localhost:8080/test/resources/bootstrap/main/js/custom.js"></script>
 	<script language="javascript"
 		src="http://connect.facebook.net/ko_KR/all.js"></script>
-	<script language="javascript">
 
-		function testlogout() {
-				window.location.href = "<%=logoutURL%>"
-		}
-	</script>
 
 </body>
 </html>

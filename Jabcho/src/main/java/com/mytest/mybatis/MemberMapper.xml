@@ -24,9 +24,15 @@
 
 	<!-- select -->
 
-	<select id="getMember" resultMap="MembersResultMap">
+	<select id="getMemberName" resultMap="MembersResultMap">
 
-		select * from members
+		select * from members where name=#{name}
+
+	</select>
+	
+	<select id="getMemberEmail" resultMap="MembersResultMap">
+
+		select * from members where email=#{email}
 
 	</select>
 

@@ -8,5 +8,5 @@ import com.mytest.DAO.Member;
 public interface MemberServiceImpl {
 	void insert(Member m);
 
-	List<Member> getMember();
+	List<Member> getMember(Member m);
 }

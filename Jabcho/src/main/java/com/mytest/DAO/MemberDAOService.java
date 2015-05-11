@@ -17,7 +17,7 @@ public class MemberDAOService implements MemberDAO {
 	private SqlSession sqlSession;
 
 	@Override
-	public ArrayList<Member> getMember() {
+	public ArrayList<Member> getMemberName(String name) {
 
 		ArrayList<Member> result = new ArrayList<Member>();
 
@@ -27,9 +27,28 @@ public class MemberDAOService implements MemberDAO {
 
 		// getMember()의 메소드명과 mapper.mxl과 id는 동일해야한다.
 
-		result = memberMapper.getMember();
+		result = memberMapper.getMemberName(name);
 
 		return result;
+
+	}
+
+	@Override
+	public String getMemberEmail(String email) {
+		//db에서 email로 체크하는부분
+		ArrayList<Member> result = new ArrayList<Member>();
+		// sqlSession을 통하여 매핑한다.
+		System.out.println("MemberDAOService.java");
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+
+		// getMember()의 메소드명과 mapper.mxl과 id는 동일해야한다.
+
+		result = memberMapper.getMemberEmail(email);
+		
+		if (result.size() == 0)
+			return "";
+		else
+			return result.get(0).get_email();
 
 	}
 

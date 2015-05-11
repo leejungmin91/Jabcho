@@ -26,32 +26,30 @@ public class MainController {
 
 	@RequestMapping(value = "/main", method = RequestMethod.POST)
 	public ModelAndView insert(HttpServletRequest request) {
-		
 		Member member = new Member();
-		member.set_name((String) request.getParameter("name"));
-		member.set_email((String) request.getParameter("email"));
-		member.set_gender((String) request.getParameter("gender"));
-
-		if (((String) request.getParameter("name")).equals(member.get_name())
-				&& ((String) request.getParameter("email")).equals(member
-						.get_email())) {
-			memberDAOService.insertMember(member);
+		System.out.println("email = "+(String) request.getParameter("email"));
+		System.out.println("memberDAO email = "+memberDAOService
+				.getMemberEmail((String) request.getParameter("email")));
+		if (((String) request.getParameter("email")).equals((memberDAOService
+				.getMemberEmail((String) request.getParameter("email"))))) {
 			System.out.println("Duplication name & email!!");
 			ModelAndView result = new ModelAndView();
-			List<Member> memberList = memberDAOService.getMember();
+			List<Member> memberList = memberDAOService.getMemberName((String) request.getParameter("name"));
 			result.addObject("result", memberList);
 			result.setViewName("main");
 			return result;
 		} else {
+			member.set_name((String) request.getParameter("name"));
+			member.set_email((String) request.getParameter("email"));
+			member.set_gender((String) request.getParameter("gender"));
 			memberDAOService.insertMember(member);
 			System.out.println("insert complet");
 			ModelAndView result = new ModelAndView();
-			List<Member> memberList = memberDAOService.getMember();
+			List<Member> memberList = memberDAOService.getMemberName((String) request.getParameter("name"));
 			result.addObject("result", memberList);
 			result.setViewName("main");
 			return result;
 		}
 
 	}
-
 }

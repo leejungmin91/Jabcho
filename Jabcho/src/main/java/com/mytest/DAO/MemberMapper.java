@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public interface MemberMapper {
 
-	ArrayList<Member> getMember();
+	ArrayList<Member> getMemberName(String name);
+	ArrayList<Member> getMemberEmail(String email);
 
 	void insertMember(Member member);
 		

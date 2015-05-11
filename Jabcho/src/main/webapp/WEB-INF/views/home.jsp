@@ -8,7 +8,7 @@
 	// https://graph.facebook.com/oauth/access_token?grant_type=client_credentials&client_id=551330758343154&client_secret=87eea895171903c9f7c360ee7373aa8e
 	// token = 551330758343154|6JJzDSrwInjIT5cs7xuy2cm-wtQ
 	String url = "http://www.facebook.com/dialog/oauth?client_id="+
-		appKey+"&redirect_uri=http://localhost:8080/test/fbdata&scope=public_profile";
+		appKey+"&redirect_uri=http://localhost:8080/test/fbdata&scope=email";
 	
 %>
 <html lang="ko">

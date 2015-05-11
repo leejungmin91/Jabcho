@@ -4,12 +4,12 @@
 	<%@ page import="org.apache.http.impl.client.BasicResponseHandler"%>
 	<%@ page import="org.apache.http.impl.client.DefaultHttpClient"%>
 	<%@ page import="org.apache.http.client.methods.HttpGet"%>
+	<%@ page import="org.apache.http.client.methods.HttpPost"%>
 	<%@ page import="com.restfb.exception.FacebookOAuthException"%>
 	<%@ page import="com.restfb.Parameter"%>
 	<%@ page import="com.restfb.types.FacebookType"%>
 	<%@ page import="com.restfb.DefaultFacebookClient"%>
 	<%@ page import="com.restfb.FacebookClient"%>
-	<%@ page import="java.util.List"%>
 	<%@ page import="com.restfb.types.*"%>
 	<%@ page import="java.io.*"%>
 	<%@ page import="org.json.*"%>
@@ -26,6 +26,7 @@
 		String accesstoken = "";
 		String result = "";
 		String result2 = "";
+		String result3 = "";
 
 		if (StringUtils.isNotEmpty(code)) {
 			HttpGet get = new HttpGet(
@@ -38,19 +39,21 @@
 							+ "&code=" + code);
 			DefaultHttpClient http = new DefaultHttpClient();
 			result = http.execute(get, new BasicResponseHandler());
-			
+
 			accesstoken = result.substring(result.indexOf("=") + 1);
 			System.out.println(accesstoken);
+
 			HttpGet get2 = new HttpGet(
 					"https://graph.facebook.com/me?access_token="
 							+ accesstoken);
+
 			DefaultHttpClient http2 = new DefaultHttpClient();
 			result2 = http2.execute(get2, new BasicResponseHandler());
-		    session.setAttribute("fbtoken", accesstoken);
-		    System.out.println(result2);
+			session.setAttribute("fbtoken", accesstoken);
+			System.out.println("result2 = " + result2);
 		}
 		String jsonData = "";
-		
+
 		BufferedReader br = null;
 		try {
 			String line;
@@ -70,7 +73,6 @@
 				ex.printStackTrace();
 			}
 		}
-
 		JSONObject json = new JSONObject(jsonData);
 		String email = json.getString("email");
 		String name = json.getString("name");
@@ -90,8 +92,7 @@
 			type="hidden" name="gender" value="<%=gender%>">
 	</form>
 	<script type="text/javascript">
-	
-		document.sendForm.action = "http://localhost:8080/test/main"; 
+		document.sendForm.action = "http://localhost:8080/test/main";
 		document.sendForm.submit();
 	</script>
 

@@ -3,7 +3,8 @@ package com.mytest.DAO;
 import java.util.ArrayList;
 
 public interface MemberDAO {
-	public ArrayList<Member> getMember();
+	public ArrayList<Member> getMemberName(String name);
+	public String getMemberEmail(String email);
 
 	public void insertMember(Member member);
 
