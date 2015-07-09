@@ -22,7 +22,7 @@ public class MemberService implements MemberServiceImpl{
 	public void insert(Member m) {
 		// HttpServletRequest를 이용하여 main.jsp로부터 값을 가져온다 getParameter로는 id값을 가져옴.
 		memberDAOService.insertMember(m);
-		System.out.println("insert complet");
+		logger.debug("insert complet");
 		// 아래부분은 select값을 result.jsp파일에 보여주기 위해 또사용.
 		ModelAndView result = new ModelAndView();
 		List<Member> memberList = memberDAOService.getMemberName(m.get_name());
@@ -32,7 +32,7 @@ public class MemberService implements MemberServiceImpl{
 	
 	public List<Member> getMember(Member m) {
 		// HttpServletRequest를 이용하여 main.jsp로부터 값을 가져온다 getParameter로는 id값을 가져옴.
-		System.out.println("get member");
+		logger.debug("get member");
 		// 아래부분은 select값을 result.jsp파일에 보여주기 위해 또사용.
 		ModelAndView result = new ModelAndView();
 		List<Member> memberList = memberDAOService.getMemberName(m.get_name());

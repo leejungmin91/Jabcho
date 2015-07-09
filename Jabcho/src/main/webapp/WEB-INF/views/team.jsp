@@ -2,35 +2,18 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ page session="true"%>
 <%@ page import="java.net.URLEncoder "%>
-	<%@page import="org.apache.log4j.*"%>
-	<%!static Logger logger = Logger.getLogger("main.jsp"); //log4j를 위해%>
 
 <%
 	String accessToken = (String) session.getAttribute("fbtoken");
 	String logoutURL = "https://www.facebook.com/logout.php?next="
-			+ URLEncoder.encode("http://localhost:8080/test/home.do",
+			+ URLEncoder.encode("http://localhost:8080/test/home",
 					"UTF-8") + "&access_token=" + accessToken;
-	
-	String session_id = (String) session.getAttribute("session_id");
-	logger.info("session_id = " + session_id);
-	if (session_id == null || session.equals("")) {
 %>
-<script>
-	alert("세션 ID가 없습니다.");
-</script>
-<%
-	response.sendRedirect("home.do");
-	}
-	session.setMaxInactiveInterval(60*60);
-%>
-<html lang="ko">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>잡초</title>
 <!-- BOOTSTRAP STYLES-->
 <link
@@ -73,8 +56,8 @@
 					<td>${member.get_name()}</td>
 				</c:forEach>
 
-				&nbsp;님 환영합니다!&nbsp; <a href="#"
-					class="btn btn-danger square-btn-adjust" onClick="ulogout()">Logout</a>
+				&nbsp;님 환영합니다!&nbsp; <a href="<%=logoutURL%>"
+					class="btn btn-danger square-btn-adjust">Logout</a>
 			</div>
 		</nav>
 		<!-- /. NAV TOP  -->
@@ -168,33 +151,24 @@
 	<!-- /. WRAPPER  -->
 	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 	<!-- JQUERY SCRIPTS -->
-
-	
-
 	<script
-		src="http://localhost:8080/test/resources/bootstrap/home/js/jquery-1.11.1.js"></script>
+		src="http://localhost:8080/test/resources/bootstrap/main/js/jquery-1.10.2.js"></script>
 	<!-- BOOTSTRAP SCRIPTS -->
 	<script
 		src="http://localhost:8080/test/resources/bootstrap/main/js/bootstrap.min.js"></script>
 	<!-- METISMENU SCRIPTS -->
 	<script
 		src="http://localhost:8080/test/resources/bootstrap/main/js/jquery.metisMenu.js"></script>
-	
+	<!-- MORRIS CHART SCRIPTS -->
+	<script
+		src="http://localhost:8080/test/resources/bootstrap/main/js/morris/raphael-2.1.0.min.js"></script>
+	<script
+		src="http://localhost:8080/test/resources/bootstrap/main/js/morris/morris.js"></script>
 	<!-- CUSTOM SCRIPTS -->
 	<script
 		src="http://localhost:8080/test/resources/bootstrap/main/js/custom.js"></script>
 	<script language="javascript"
 		src="http://connect.facebook.net/ko_KR/all.js"></script>
-
-
-	<script type="text/javascript">
-	function ulogout() {
-		<%session.invalidate();%>
-		alert('UserLogout btn clicked');
-		window.location.href = '<%=logoutURL%>'
-	}
-</script>
-
 
 
 </body>

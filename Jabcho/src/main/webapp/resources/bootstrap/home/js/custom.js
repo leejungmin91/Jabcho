@@ -33,7 +33,7 @@ $(document).ready(function() {
 		});
 		e.preventDefault();
 	});
-
+	/*
 	// SCROLL SCRIPTS
 	$('.scroll-me a').bind('click', function(event) { // just pass scroll-me
 														// class and start
@@ -43,7 +43,7 @@ $(document).ready(function() {
 			scrollTop : $($anchor.attr('href')).offset().top
 		}, 1000, 'easeInOutQuad');
 		event.preventDefault();
-	});
+	});*/
 
 });
 

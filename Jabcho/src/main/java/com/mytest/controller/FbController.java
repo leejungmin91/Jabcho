@@ -16,26 +16,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class FbController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(HomeController.class);
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/fbdata", method = RequestMethod.GET)
+	@RequestMapping(value = "/fbdata.do", method = RequestMethod.GET)
 	public String FB(Locale locale, Model model) {
 		logger.info("Welcome fb! The client locale is {}.", locale);
-		System.out.println("Welcome fb! The client locale is."+ locale);
-		
+
 		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
+				DateFormat.LONG, locale);
+
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+
+		model.addAttribute("serverTime", formattedDate);
+
 		return "fbdata";
 	}
-	
-}
 
+}

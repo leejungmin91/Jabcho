@@ -1,0 +1,5 @@
+create table members(
+	 name VARCHAR(30),
+     email VARCHAR(50),
+     gender VARCHAR(7)
+);

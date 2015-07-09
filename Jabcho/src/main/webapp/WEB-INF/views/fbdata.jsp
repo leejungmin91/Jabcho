@@ -15,7 +15,10 @@
 	<%@ page import="org.json.*"%>
 	<%@ page import="java.text.ParseException"%>
 	<%@ page import="java.nio.charset.StandardCharsets"%>
+	<%@page import="org.apache.log4j.*"%>
+	<%!static Logger logger = Logger.getLogger("fbdata.jsp"); //log4j¸¦ À§ÇØ%>
 	<%
+
 		String appKey = "551330758343154";
 		String appSecret = "87eea895171903c9f7c360ee7373aa8e";
 		String code = request.getParameter("code");
@@ -35,13 +38,13 @@
 							+ appKey
 							+ "&client_secret="
 							+ appSecret
-							+ "&redirect_uri=http://localhost:8080/test/fbdata"
+							+ "&redirect_uri=http://localhost:8080/test/fbdata.do"
 							+ "&code=" + code);
 			DefaultHttpClient http = new DefaultHttpClient();
 			result = http.execute(get, new BasicResponseHandler());
 
 			accesstoken = result.substring(result.indexOf("=") + 1);
-			System.out.println(accesstoken);
+			logger.info(accesstoken);
 
 			HttpGet get2 = new HttpGet(
 					"https://graph.facebook.com/me?access_token="
@@ -50,7 +53,8 @@
 			DefaultHttpClient http2 = new DefaultHttpClient();
 			result2 = http2.execute(get2, new BasicResponseHandler());
 			session.setAttribute("fbtoken", accesstoken);
-			System.out.println("result2 = " + result2);
+
+			logger.info("result2 = " + result2);
 		}
 		String jsonData = "";
 
@@ -74,6 +78,7 @@
 			}
 		}
 		JSONObject json = new JSONObject(jsonData);
+		session.setAttribute("session_id", json.getString("email"));
 		String email = json.getString("email");
 		String name = json.getString("name");
 		String gender = json.getString("gender");
@@ -92,7 +97,7 @@
 			type="hidden" name="gender" value="<%=gender%>">
 	</form>
 	<script type="text/javascript">
-		document.sendForm.action = "http://localhost:8080/test/main";
+		document.sendForm.action = "http://localhost:8080/test/main.do";
 		document.sendForm.submit();
 	</script>
 
