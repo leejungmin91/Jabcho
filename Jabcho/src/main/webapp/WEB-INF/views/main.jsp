@@ -2,15 +2,16 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ page session="true"%>
 <%@ page import="java.net.URLEncoder "%>
-	<%@page import="org.apache.log4j.*"%>
-	<%!static Logger logger = Logger.getLogger("main.jsp"); //log4j를 위해%>
+<%@page import="org.apache.log4j.*"%>
+<%!static Logger logger = Logger.getLogger("main.jsp"); //log4j를 위해%>
 
 <%
 	String accessToken = (String) session.getAttribute("fbtoken");
 	String logoutURL = "https://www.facebook.com/logout.php?next="
 			+ URLEncoder.encode("http://localhost:8080/test/home.do",
 					"UTF-8") + "&access_token=" + accessToken;
-	
+	String session_fb_id = (String) session
+			.getAttribute("session_fb_id");
 	String session_id = (String) session.getAttribute("session_id");
 	logger.info("session_id = " + session_id);
 	if (session_id == null || session.equals("")) {
@@ -21,7 +22,7 @@
 <%
 	response.sendRedirect("home.do");
 	}
-	session.setMaxInactiveInterval(60*60);
+	session.setMaxInactiveInterval(60 * 60);
 %>
 <html lang="ko">
 <head>
@@ -81,9 +82,13 @@
 		<nav class="navbar-default navbar-side" role="navigation">
 			<div class="sidebar-collapse">
 				<ul class="nav" id="main-menu">
-					<li class="text-center"><img
+					<li class="text-center">
+						<!--  <img
 						src="http://localhost:8080/test/resources/bootstrap/main/img/find_user.png"
-						class="user-image img-responsive" /></li>
+						class="user-image img-responsive" />--> <img
+						src="https://graph.facebook.com/<%=session_fb_id%>/picture"
+						class="user-image img-responsive" height="60" width="60" />
+					</li>
 
 
 					<li><a class="active-menu" href="#"><i
@@ -100,14 +105,43 @@
 			<div id="page-inner">
 				<div class="row">
 					<div class="col-md-12">
-						<h2>Admin Dashboard</h2>
-						<h5>Welcome Jhon Deo , Love to see you back.</h5>
-
-						<form action="fileup" method="post" enctype="multipart/form-data">
+						<h3>File UPLOAD</h3>
+						<form action="fileup.do" method="post" enctype="multipart/form-data">
 							<input type="file" name="uploadfile" required="required">
 							<input type="submit" value="작성">
 
 						</form>
+
+						</br>
+						<h3>File DOWNLOAD LIST</h3>
+						</br>
+						<fieldset>
+							<table style="border: 1px; width: 400px;">
+								<tr>
+									<th style="width: 100px"></th>
+									<th style="width: 300px">파일명</th>
+									<th style="width: 100px">파일사이즈</th>
+								</tr>
+
+								<c:if test="${ !empty list }">
+									<c:forEach items="${ list }" var="list">
+										<tr>
+											<td width="100px"></td>
+											<td width="300px"><a
+												href="filedown.do?fileName=${ list.getFileName() }">${ list.getFileName() }</a></td>
+											<td width="100px">${ list.getFileSize() }</td>
+										</tr>
+									</c:forEach>
+								</c:if>
+
+								<c:if test="${ empty list }">
+									<tr>
+										<td colspan="5">등록된 게시물이 없습니다.</td>
+									</tr>
+								</c:if>
+							</table>
+						</fieldset>
+						</br> </br>
 
 					</div>
 				</div>
@@ -169,7 +203,7 @@
 	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 	<!-- JQUERY SCRIPTS -->
 
-	
+
 
 	<script
 		src="http://localhost:8080/test/resources/bootstrap/home/js/jquery-1.11.1.js"></script>
@@ -179,7 +213,7 @@
 	<!-- METISMENU SCRIPTS -->
 	<script
 		src="http://localhost:8080/test/resources/bootstrap/main/js/jquery.metisMenu.js"></script>
-	
+
 	<!-- CUSTOM SCRIPTS -->
 	<script
 		src="http://localhost:8080/test/resources/bootstrap/main/js/custom.js"></script>
@@ -191,9 +225,10 @@
 	function ulogout() {
 		<%session.invalidate();%>
 		alert('UserLogout btn clicked');
-		window.location.href = '<%=logoutURL%>'
-	}
-</script>
+		window.location.href = '<%=logoutURL%>
+		'
+		}
+	</script>
 
 
 

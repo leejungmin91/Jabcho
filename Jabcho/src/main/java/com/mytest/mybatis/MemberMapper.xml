@@ -8,7 +8,7 @@
 
 	<!-- <cache-ref namespace=""/> -->
 
-	<resultMap type="Member" id="MembersResultMap">
+	<resultMap type="MemberDTO" id="MembersResultMap">
 
 		<result property="idx" column="idx" />
 
@@ -40,20 +40,18 @@
 
 	<!-- insert -->
 
-	<insert id="insertMember" parameterType="com.mytest.DAO.Member">
+	<insert id="insertMember" parameterType="com.mytest.DTO.MemberDTO">
 
 		insert into members
 		values ( #{name},#{email},#{gender})
 
 	</insert>
 
-
-
 	<update id="updateMember"></update>
 
 
 
-	<delete id="deleteMember" parameterType="com.mytest.DAO.Member">
+	<delete id="deleteMember" parameterType="com.mytest.DTO.MemberDTO">
 
 	</delete>
 

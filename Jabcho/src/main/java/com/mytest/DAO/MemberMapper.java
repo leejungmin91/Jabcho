@@ -2,12 +2,14 @@ package com.mytest.DAO;
 
 import java.util.ArrayList;
 
+import com.mytest.DTO.MemberDTO;
+
 public interface MemberMapper {
 
-	ArrayList<Member> getMemberName(String name);
-	ArrayList<Member> getMemberEmail(String email);
+	ArrayList<MemberDTO> getMemberName(String name);
+	ArrayList<MemberDTO> getMemberEmail(String email);
 
-	void insertMember(Member member);
+	void insertMember(MemberDTO member);
 		
 	void updateMember(String name);
 

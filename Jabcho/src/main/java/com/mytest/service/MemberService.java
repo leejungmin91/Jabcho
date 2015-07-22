@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mytest.DAO.Member;
 import com.mytest.DAO.MemberDAOService;
+import com.mytest.DTO.MemberDTO;
 
 @Service
 public class MemberService implements MemberServiceImpl{
@@ -19,23 +19,23 @@ public class MemberService implements MemberServiceImpl{
 	private static final Logger logger = LoggerFactory
 			.getLogger(MemberService.class);
 
-	public void insert(Member m) {
+	public void insert(MemberDTO m) {
 		// HttpServletRequest를 이용하여 main.jsp로부터 값을 가져온다 getParameter로는 id값을 가져옴.
 		memberDAOService.insertMember(m);
-		logger.debug("insert complet");
+		logger.info("insert complet");
 		// 아래부분은 select값을 result.jsp파일에 보여주기 위해 또사용.
 		ModelAndView result = new ModelAndView();
-		List<Member> memberList = memberDAOService.getMemberName(m.get_name());
+		List<MemberDTO> memberList = memberDAOService.getMemberName(m.get_name());
 		result.addObject("result", memberList);
 		result.setViewName("main");
 	}
 	
-	public List<Member> getMember(Member m) {
+	public List<MemberDTO> getMember(MemberDTO m) {
 		// HttpServletRequest를 이용하여 main.jsp로부터 값을 가져온다 getParameter로는 id값을 가져옴.
-		logger.debug("get member");
+		logger.info("get member");
 		// 아래부분은 select값을 result.jsp파일에 보여주기 위해 또사용.
 		ModelAndView result = new ModelAndView();
-		List<Member> memberList = memberDAOService.getMemberName(m.get_name());
+		List<MemberDTO> memberList = memberDAOService.getMemberName(m.get_name());
 		result.addObject("result", memberList);
 		result.setViewName("main");
 		return memberList;

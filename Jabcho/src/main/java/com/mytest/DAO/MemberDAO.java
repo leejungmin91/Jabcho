@@ -2,11 +2,13 @@ package com.mytest.DAO;
 
 import java.util.ArrayList;
 
+import com.mytest.DTO.MemberDTO;
+
 public interface MemberDAO {
-	public ArrayList<Member> getMemberName(String name);
+	public ArrayList<MemberDTO> getMemberName(String name);
 	public String getMemberEmail(String email);
 
-	public void insertMember(Member member);
+	public void insertMember(MemberDTO member);
 
 	public void updateMember(String name);
 

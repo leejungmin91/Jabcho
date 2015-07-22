@@ -7,15 +7,15 @@
 	xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:cache="http://www.springframework.org/schema/cache"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.1.xsd
-		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
-		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/beans&#10; http://www.springframework.org/schema/beans/spring-beans.xsd&#10;
+		http://www.springframework.org/schema/context&#10; http://www.springframework.org/schema/context/spring-context.xsd&#10;">
 
 
 
@@ -37,7 +37,16 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property value="0" name="order" />
+	</beans:bean>
 
+	<beans:bean class="com.mytest.controller.FileDownloadView"
+		id="download">
+	</beans:bean>
+	
+	
+	
 
 	<beans:bean
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
@@ -45,5 +54,6 @@
 
 
 	<context:component-scan base-package="com.mytest.controller" />
-
+	
+	<beans:bean id="vertxSample" class="com.mytest.service.VertxService" />
 </beans:beans>

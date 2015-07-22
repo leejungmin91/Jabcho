@@ -2,11 +2,10 @@ package com.mytest.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mytest.DAO.Member;
+import com.mytest.DTO.MemberDTO;
 
 public interface MemberServiceImpl {
-	void insert(Member m);
+	void insert(MemberDTO m);
 
-	List<Member> getMember(Member m);
+	List<MemberDTO> getMember(MemberDTO m);
 }

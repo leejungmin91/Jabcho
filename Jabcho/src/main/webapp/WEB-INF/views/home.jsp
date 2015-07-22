@@ -9,7 +9,7 @@
 	// token = 551330758343154|6JJzDSrwInjIT5cs7xuy2cm-wtQ
 	
 	String url = "http://www.facebook.com/dialog/oauth?client_id="+
-		appKey+"&redirect_uri=http://localhost:8080/test/fbdata.do&scope=email";
+		appKey+"&response_type=code&redirect_uri=http://localhost:8080/test/fbdata.do&scope=email&sdk=php-sdk-3.2.3&display=popup";
 	
 %>
 <html lang="ko">
@@ -71,10 +71,11 @@
 						<a href="main"> <i class="ion-ios-home-outline"></i></a> <span
 							class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown"> Login <span class="caret"></span>
-						</a> <!-- onClick="openW('https://www.facebook.com/dialog/oauth?client_id=551330758343154&redirect_uri=http%3A%2F%2Flocalhost:8080/test/home&state=914af6d6a447253b8370c1fa6055297c&sdk=php-sdk-3.2.3&display=popup','',600,350);" -->
+						</a> 
+						<!-- onClick="openW('<%=url%>','',600,350);" -->
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="#" style="font-size: 20px; color: #4374D9;"
-									onClick="facebookoauth()"><i
+									onClick="facebookoauth();"><i 
 										class="fa fa-facebook-square fa-lg"></i>&nbsp;&nbsp;Facebook
 										Login </a></li>
 								<li><a href="#" style="font-size: 20px; color: #4374D9;"><i
@@ -226,14 +227,25 @@
 	<!-- 윈도우 창  생성 -->
 	<script type="text/javascript">
 		function openW(url, idn, intWidth, intHeight, scroll) {
+			/*
 			window.open(url, idn, "width=" + intWidth + ", height=" + intHeight
-					+ ",resizable=0,scrollbars=" + scroll);
+					+ ",resizable=0,scrollbars=" + scroll,"_self");*/
+					
+			var win = window.open(null, idn, "width=" + intWidth + ", height=" + intHeight
+					+ ",resizable=0,scrollbars=" + scroll,"_self");
+					
+			 win.document.write('<iframe width="100%", height="100%" src="http://localhost:8080/test/windowChild.do" frameborder="0" allowfullscreen></iframe>')
+
+			
+			
 
 		}
 	</script>
 	<script type="text/javascript">
 	function facebookoauth() {
+		
 		window.location.href = '<%=url%>'
+			
 	}
 </script>
 

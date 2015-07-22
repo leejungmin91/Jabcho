@@ -18,7 +18,6 @@
 	<%@page import="org.apache.log4j.*"%>
 	<%!static Logger logger = Logger.getLogger("fbdata.jsp"); //log4j¸¦ À§ÇØ%>
 	<%
-
 		String appKey = "551330758343154";
 		String appSecret = "87eea895171903c9f7c360ee7373aa8e";
 		String code = request.getParameter("code");
@@ -53,8 +52,10 @@
 			DefaultHttpClient http2 = new DefaultHttpClient();
 			result2 = http2.execute(get2, new BasicResponseHandler());
 			session.setAttribute("fbtoken", accesstoken);
-
+			
 			logger.info("result2 = " + result2);
+			
+			
 		}
 		String jsonData = "";
 
@@ -79,6 +80,7 @@
 		}
 		JSONObject json = new JSONObject(jsonData);
 		session.setAttribute("session_id", json.getString("email"));
+		session.setAttribute("session_fb_id", json.getString("id"));
 		String email = json.getString("email");
 		String name = json.getString("name");
 		String gender = json.getString("gender");
@@ -97,8 +99,11 @@
 			type="hidden" name="gender" value="<%=gender%>">
 	</form>
 	<script type="text/javascript">
+		
 		document.sendForm.action = "http://localhost:8080/test/main.do";
 		document.sendForm.submit();
+
+		//window.open("about:blank", "_self").close();
 	</script>
 
 </body>

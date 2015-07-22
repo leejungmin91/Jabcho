@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class FbController {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(HomeController.class);
+			.getLogger(FbController.class);
 
 	/**
 	 * Simply selects the home view to render by returning its name.
